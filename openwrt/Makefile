@@ -1,3 +1,12 @@
+#
+# @file Makefile
+#
+# @author Akagi201
+# @date 2015/03/23
+#
+# OpenWrt feeds Makefile
+#
+
 ##############################################
 # OpenWrt Makefile for port-mirroring program
 #
@@ -23,18 +32,21 @@ PKG_NAME:=port-mirroring
 PKG_VERSION:=1.3
 PKG_RELEASE:=1
 
-
-# This specifies the directory where we're going to build the program. 
+# This specifies the directory where we're going to build the program.
 # The root build directory, $(BUILD_DIR), is by default the build_mipsel
 # directory in your OpenWrt SDK directory
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=http://port-mirroring.googlecode.com/files/ 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+#PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+#PKG_SOURCE_URL:=http://port-mirroring.googlecode.com/files/
+#PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/Akagi201/port-mirroring.git
+PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE)
+PKG_SOURCE_VERSION:=master
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-$(PKG_RELEASE)
 
 include $(INCLUDE_DIR)/package.mk
-
- 
 
 # Specify package information for this program.
 # The variables defined here should be self explanatory.
@@ -46,8 +58,12 @@ define Package/port-mirroring
 	CATEGORY:=Network
 	DEPENDS:=+libpcap +libpthread
 	TITLE:=port-mirroring tool
-	URL:=http://code.google.com/p/port-mirroring/
+	URL:=https://github.com/Akagi201/port-mirroring
 	MENU:=1
+endef
+
+define Package/port-mirroring/description
+	port-mirroring offers port mirror in a software.
 endef
 
 # Specify where and how to install the program. Since we only have one file,
@@ -90,4 +106,3 @@ endef
 # line calls BuildPackage which in turn actually uses this information to
 # build a package.
 $(eval $(call BuildPackage,port-mirroring))
-
